@@ -1,6 +1,14 @@
-import { useState } from 'react';
-import { FlatList, Modal } from 'react-native';
-import { Box, Image, Text, Pressable } from 'native-base';
+import React, { useState } from "react";
+import { FlatList } from "react-native";
+import {
+  Box,
+  Image,
+  Text,
+  Pressable,
+  Modal,
+  View,
+  Button,
+} from "@gluestack-ui/themed";
 
 // Dummy Data (Array of Objects)
 const datas = [
@@ -38,40 +46,6 @@ const datas = [
     image:
       "https://b3338070.smushcdn.com/3338070/wp-content/uploads/2024/03/Telkom-University-Surabaya-2-1200x600.jpg?lossy=2&strip=1&webp=1",
   },
-  {
-    id: 6,
-    title:
-      "Telkom University Surabaya Hadirkan Inovasi Pengganti Bantalan Roda Semi Otonom Tank Leopard berbasis Electric Forklift Khusus untuk Penguatan Alutsista TNI",
-    image:
-      "https://b3338070.smushcdn.com/3338070/wp-content/uploads/bfi_thumb/tank-leopard-7dnkdoqfkgh7et7l6q0j1odu6ovt6cavmgnig3e1368.jpg?lossy=2&strip=1&webp=1",
-  },
-  {
-    id: 7,
-    title: "Sosialisasi PKM 2024 Bersama Tim Pemenangan Tel-U Surabaya",
-    image:
-      "https://b3338070.smushcdn.com/3338070/wp-content/uploads/2024/02/pkm-2024-1-1200x600.jpeg?lossy=2&strip=1&webp=1",
-  },
-  {
-    id: 8,
-    title:
-      "Transformasi Digital Al-Barra Studio Melalui Pembuatan Website oleh Institut Teknologi Telkom Surabaya",
-    image:
-      "https://b3338070.smushcdn.com/3338070/wp-content/uploads/2023/11/transformasi-digital.jpg?lossy=2&strip=1&webp=1",
-  },
-  {
-    id: 9,
-    title:
-      "Program Pengabdian Masyarakat Telkom University Surabaya Bantu UMKM Desa Panjunan Go Digital dan Raih Pasar Internasional",
-    image:
-      "https://b3338070.smushcdn.com/3338070/wp-content/uploads/2024/09/umkm-go-digital-1200x600.jpg?lossy=2&strip=1&webp=1",
-  },
-  {
-    id: 10,
-    title:
-      "Workshop Social Media Marketing dari INDIBIZ Memberdayakan Pedagang Lokal",
-    image:
-      "https://b3338070.smushcdn.com/3338070/wp-content/uploads/2024/07/social-media-marketing-1-1200x600.jpg?lossy=2&strip=1&webp=1",
-  },
 ];
 
 const List = () => {
@@ -79,33 +53,59 @@ const List = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const renderItem = ({ item }) => (
-    <Box px={4} py={4} borderBottomWidth={1} borderColor="gray.200">
-      <Pressable onPress={() => {
-        setSelectedItem(item);
-        setModalVisible(true);
-      }}>
-        <Image source={{ uri: item.image }} alt={item.title} width="100%" height={52} />
-        <Text mt={2} fontSize="lg">{item.title}</Text>
+    <Box px="$4" py="$4" borderBottomWidth={1} borderColor="$borderLight300">
+      <Pressable
+        onPress={() => {
+          setSelectedItem(item);
+          setModalVisible(true);
+        }}
+      >
+        <Image
+          source={{ uri: item.image }}
+          alt={item.title}
+          w="100%"
+          h={200}
+          rounded="$lg"
+        />
+        <Text mt="$2" fontSize="$lg" fontWeight="600">
+          {item.title}
+        </Text>
       </Pressable>
     </Box>
   );
 
   return (
     <View>
-      <FlatList data={datas} renderItem={renderItem} keyExtractor={(item) => item.id.toString()} />
-      <Modal transparent={true} visible={modalVisible} animationType="slide">
-        <Box flex={1} bg="rgba(0,0,0,0.5)" justifyContent="center" alignItems="center">
-          <Box bg="white" rounded="lg" p={5} width="85%" alignItems="center">
-            {selectedItem && (
-              <Text fontSize="lg" fontWeight="bold" textTransform="uppercase" mb={4} textAlign="center">
-                {selectedItem.title}
-              </Text>
-            )}
-            <Pressable bg="red.700" p={2} rounded="lg" onPress={() => setModalVisible(false)}>
-              <Text color="white" fontWeight="bold">TUTUP</Text>
-            </Pressable>
-          </Box>
-        </Box>
+      <FlatList
+        data={datas}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+
+      <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
+        <Modal.Backdrop />
+        <Modal.Content p="$5" rounded="$2xl" bg="$backgroundLight0">
+          <Modal.CloseButton />
+          <Modal.Header>
+            <Text
+              fontSize="$lg"
+              fontWeight="bold"
+              textTransform="uppercase"
+              textAlign="center"
+            >
+              {selectedItem?.title}
+            </Text>
+          </Modal.Header>
+          <Modal.Footer justifyContent="center">
+            <Button
+              bg="$red700"
+              rounded="$lg"
+              onPress={() => setModalVisible(false)}
+            >
+              <Button.Text>TUTUP</Button.Text>
+            </Button>
+          </Modal.Footer>
+        </Modal.Content>
       </Modal>
     </View>
   );

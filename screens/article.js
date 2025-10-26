@@ -1,7 +1,7 @@
 import { Alert } from 'react-native';
 import { ScrollView, Image, Box, Text, Divider } from 'native-base';
 import Separator from '../components/separator';
-import Button from '../components/button';
+import Button from '../components/ui/gluestack-button';
 
 // Functional Component
 const Article = () => {

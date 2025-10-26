@@ -1,10 +1,6 @@
-import { View } from 'react-native';
+// Re-export the Gluestack separator implementation
+import GluestackSeparator from './ui/gluestack-separator';
 
-// Functional Component with props
-const Separator = (props) => {
-    return <View style={{ height: props.height }} />;
-};
-
-export default Separator;
+export default GluestackSeparator;
 
 

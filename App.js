@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { View, DrawerLayoutAndroid } from "react-native";
+import { DrawerLayoutAndroid } from "react-native";
+import { Box } from "./components/ui/primitives";
 import { StatusBar } from 'expo-status-bar';
 import Header from "./components/header";
 import Button from "./components/button";
@@ -24,13 +25,13 @@ const App = () => {
 
   // Navigation View (Drawer Content)
   const navigationView = () => (
-    <View style={{ padding: 30, backgroundColor: "#222222", flex: 1 }}>
+    <Box p={8} bg="#222222" flex={1}>
       <Button text="List" onPress={() => changePage(drawer, "list")} />
       <Separator height={30} />
       <Button text="Article" onPress={() => changePage(drawer, "article")} />
       <Separator height={30} />
       <Button text="Close" onPress={() => drawer.current.closeDrawer()} />
-    </View>
+    </Box>
   );
 
   return (
@@ -42,10 +43,10 @@ const App = () => {
         renderNavigationView={navigationView}
       >
         <StatusBar style="light" backgroundColor="#AA0002" />
-        <View>
+        <Box>
           <Header drawer={drawer} />
           {page === "list" ? <List /> : page === "article" ? <Article /> : null}
-        </View>
+        </Box>
       </DrawerLayoutAndroid>
     </NativeBaseProvider>
   );
